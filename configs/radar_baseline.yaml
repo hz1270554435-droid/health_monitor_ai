@@ -1,0 +1,26 @@
+project:
+  name: health_monitor_ai
+  seed: 42
+
+paths:
+  radar_dir: data/raw/radar
+  labels_csv: data/labels/radar_labels.csv
+  processed_dir: data/processed/radar_windows
+  models_dir: models/radar
+  results_dir: results/radar
+
+radar:
+  input_format: parsed_csv
+  window_seconds: 10
+  expected_columns:
+    - timestamp
+    - rr
+    - hr
+    - presence_score
+    - motion_score
+    - phase_amp
+    - phase_var
+
+training:
+  model: random_forest
+  output_feature_importance: true

@@ -1,0 +1,16 @@
+audio:
+  sample_rate: 16000
+  window_seconds: 1.0
+  hop_seconds: 0.5
+  n_mels: 40
+  n_fft: 1024
+  hop_length: 160
+  fmin: 50
+  fmax: 7600
+  mel_scale: htk
+  htk: true
+  center: true
+  top_db: 80
+  normalize: per_window_zscore
+  dtype: float32
+  expected_shape: [1, 1, 40, 101]

@@ -1,0 +1,29 @@
+project:
+  name: health_monitor_ai
+  seed: 42
+
+paths:
+  audio_manifest_csv: data/index/audio_manifest.csv
+  non_cough_pool_csv: data/index/non_cough_pool.csv
+
+manifest:
+  sources:
+    label_csvs:
+      - name: cough_v2_labels
+        path: data/labels/audio_labels_v2.csv
+        audio_root: .
+        source_dataset: formal_audio_50_v2
+        quality: reviewed
+        eval_allowed: true
+    hard_data_manifests:
+      - name: fsd50k_negative_clean_subset
+        path: data/hard_data/hard_data_manifest.csv
+        source_dataset: FSD50K_Negative_clean
+        label: non_cough
+        quality: external_pool
+        eval_allowed: false
+        negative_role: shared_negative
+
+non_cough_pool:
+  normalized_labels:
+    - non_cough

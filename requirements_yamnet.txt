@@ -1,0 +1,11 @@
+# Install these in an isolated .venv_yamnet environment.
+# Keep the main PyTorch training environment unchanged.
+tensorflow
+tensorflow-hub
+librosa
+soundfile
+numpy
+pandas
+tqdm
+scipy
+pyyaml

@@ -1,0 +1,47 @@
+project:
+  name: health_monitor_ai
+  seed: 42
+
+paths:
+  audio_dir: data/raw/audio
+  labels_csv: data/labels/audio_labels.csv
+  sessions_csv: data/labels/sessions.csv
+  processed_dir: data/processed/audio_features
+  models_dir: models/audio
+  results_dir: results/audio
+
+audio:
+  sample_rate: 16000
+  window_seconds: 1.0
+  hop_seconds: 0.5
+  n_mels: 40
+  n_fft: 1024
+  hop_length: 160
+  fmin: 50
+  fmax: 7600
+
+labels:
+  positive: cough
+  negative: non_cough
+
+split:
+  train_ratio: 0.7
+  val_ratio: 0.15
+  test_ratio: 0.15
+  group_column: person_id
+
+training:
+  model: small_cnn
+  batch_size: 32
+  epochs: 30
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  num_workers: 0
+  device: auto
+  early_stopping_patience: 5
+  optimizer: adam
+  class_weight: auto
+run:
+  name: audio_baseline
+debug:
+  small_data: false

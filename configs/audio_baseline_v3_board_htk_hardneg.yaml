@@ -1,0 +1,71 @@
+project:
+  name: health_monitor_ai
+  seed: 42
+
+paths:
+  audio_dir: .
+  labels_csv: data/labels/audio_labels_v3.csv
+  sessions_csv: data/labels/audio_labels_v3_candidate_sessions.csv
+  processed_dir: data/processed/audio_features_v3_board_htk_hardneg
+  models_dir: models/audio
+  results_dir: results/audio
+
+audio:
+  frontend: board_htk_no_norm_v1
+  sample_rate: 16000
+  window_seconds: 1.0
+  hop_seconds: 0.5
+  n_mels: 40
+  n_fft: 1024
+  hop_length: 160
+  fmin: 50
+  fmax: 7600
+  mel_scale: htk
+  htk: true
+  center: true
+  top_db: 80
+  normalize: none
+
+labels:
+  positive: cough
+  negative: non_cough
+  class_order:
+    - non_cough
+    - cough
+
+split:
+  train_ratio: 0.7
+  val_ratio: 0.15
+  test_ratio: 0.15
+  group_column: person_id
+
+sampling:
+  mode: balanced
+  hard_negative_oversample: true
+  hard_negative_multiplier: 2.0
+  use_sample_weight: true
+
+training:
+  model: ds_cnn
+  batch_size: 32
+  epochs: 30
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  num_workers: 0
+  device: auto
+  early_stopping_patience: 5
+  optimizer: adamw
+  class_weight: auto
+
+eval:
+  primary_metric: val_f1
+  threshold_min_recall: 0.90
+  false_alarm:
+    event_merge_gap_seconds: 5.0
+    night_hours: 8.0
+
+run:
+  name: audio_baseline_v3_board_htk_hardneg
+
+debug:
+  small_data: false

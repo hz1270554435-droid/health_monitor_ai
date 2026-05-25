@@ -1,0 +1,2 @@
+review_file,source_audio,start_time,end_time,decision,review_priority,baseline_cough_prob,yamnet_top1,yamnet_top1_score,yamnet_cough_score,yamnet_sneeze_score,yamnet_speech_score,manual_decision,notes
+review\yamnet_hard_mining_v1\clips\00001_baseline_suspicious_review_b0p929_Camera_0p00_0p82.wav,data\hard_data\FSD50K_Negative_clean\100006.wav,0.0,0.82225,baseline_suspicious_review,highest,0.928965,Camera,0.453528,0.0,3e-06,0.002064,,

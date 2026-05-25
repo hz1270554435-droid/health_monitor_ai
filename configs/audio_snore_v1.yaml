@@ -1,0 +1,95 @@
+project:
+  name: health_monitor_ai
+  seed: 42
+
+paths:
+  audio_dir: .
+  audio_manifest_csv: data/index/audio_manifest.csv
+  non_cough_pool_csv: data/index/non_cough_pool.csv
+  task_view_csv: data/index/task_views/snore_v1.csv
+  labels_csv: data/index/task_views/snore_v1.csv
+  sessions_csv: data/labels/formal_audio_50/sessions.csv
+  processed_dir: data/processed/audio/snore_v1
+  models_dir: models/audio
+  results_dir: results/audio
+
+task:
+  name: snore_v1
+  positive_label: snore
+  negative_label: non_snore
+  positive_source_labels:
+    - snore
+  negative_source_labels:
+    - non_cough
+    - cough
+  negative_pool:
+    include: true
+  hard_negative_labels:
+    - cough
+    - speech
+    - throat_clearing
+    - pillow_friction
+    - blanket_movement
+    - fan
+    - ac_noise
+    - breathing
+    - tv
+    - music
+
+audio:
+  sample_rate: 16000
+  window_seconds: 1.0
+  hop_seconds: 0.5
+  n_mels: 40
+  n_fft: 1024
+  hop_length: 160
+  fmin: 50
+  fmax: 7600
+  mel_scale: htk
+  htk: true
+  center: true
+  top_db: 80
+  normalize: per_window_zscore
+
+labels:
+  positive: snore
+  negative: non_snore
+  class_order:
+    - non_snore
+    - snore
+
+split:
+  train_ratio: 0.7
+  val_ratio: 0.15
+  test_ratio: 0.15
+  group_column: split_group
+  allow_train_only_when_too_few_groups: true
+
+sampling:
+  mode: class_weight
+  hard_negative_multiplier: 2.0
+
+training:
+  model: small_cnn
+  batch_size: 32
+  epochs: 30
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  num_workers: 0
+  device: auto
+  early_stopping_patience: 5
+  optimizer: adamw
+  class_weight: auto
+
+eval:
+  primary_metric: val_f1
+  threshold_min_recall: 0.90
+  false_alarm:
+    event_merge_gap_seconds: 5.0
+    night_hours: 8.0
+
+run:
+  name: snore_v1
+
+debug:
+  small_data: false

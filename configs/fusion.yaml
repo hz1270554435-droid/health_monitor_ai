@@ -1,0 +1,28 @@
+project:
+  name: health_monitor_ai
+  seed: 42
+
+paths:
+  audio_results_dir: results/audio
+  radar_results_dir: results/radar
+  fusion_windows_dir: data/processed/fusion_windows
+  models_dir: models/fusion
+  results_dir: results/fusion
+
+fusion:
+  first_version: rule_based
+  inputs:
+    - audio_cough_probability
+    - radar_presence
+    - radar_motion
+    - radar_respiration_quality
+    - signal_quality
+  outputs:
+    - normal
+    - attention
+    - warning
+
+rules:
+  warning_cough_probability: 0.8
+  attention_cough_probability: 0.5
+  min_signal_quality: 0.4

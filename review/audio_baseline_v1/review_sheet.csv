@@ -1,0 +1,6 @@
+file,source_audio,start_time,end_time,true_label,pred_label,cough_prob,manual_decision,notes
+review/audio_baseline_v1/01_true-non_cough_pred-cough_prob-0p8306_start-0p0_end-2p5.wav,data/formal_audio_50/non_cough_0023.wav,0,2.5,non_cough,cough,0.830644,hard_negative,
+review/audio_baseline_v1/02_true-non_cough_pred-cough_prob-0p7201_start-14p0_end-16p5.wav,data/formal_audio_50/non_cough_0023.wav,14,16.5,non_cough,cough,0.720138,hard_negative,
+review/audio_baseline_v1/03_true-non_cough_pred-cough_prob-0p9876_start-20p0_end-22p0.wav,data/formal_audio_50/non_cough_0023.wav,20,22,non_cough,cough,0.987624,relabel_to_non_cough,
+review/audio_baseline_v1/04_true-cough_pred-non_cough_prob-0p3907_start-1p0_end-2p0.wav,data/formal_audio_50/cough_0024.wav,1,2,cough,non_cough,0.390711,relabel_to_non_cough,
+review/audio_baseline_v1/05_true-cough_pred-non_cough_prob-0p3924_start-2p0_end-3p0.wav,data/formal_audio_50/cough_0024.wav,2,3,cough,non_cough,0.392354,relabel_to_non_cough,

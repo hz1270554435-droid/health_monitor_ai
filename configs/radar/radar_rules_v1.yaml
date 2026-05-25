@@ -1,0 +1,41 @@
+project:
+  name: health_monitor_ai
+  seed: 42
+
+paths:
+  features_csv: data/processed/radar_assist_v1/radar_features_v1.csv
+  output_csv: data/processed/radar_assist_v1/radar_rules_v1.csv
+  metrics_json: results/radar_assist_v1/radar_rules_metrics.json
+  rules_header: deploy/radar/radar_rules_v1.h
+  rules_source: deploy/radar/radar_rules_v1.c
+  results_dir: results/radar_assist_v1
+
+rules:
+  state_order:
+    - valid_stable
+    - valid_motion
+    - no_target
+    - radar_invalid
+  columns:
+    sample_count: sample_count
+    presence_score: presence_score_mean
+    motion_score: motion_score_mean
+    quality_score: quality_score_mean
+    invalid_fraction: invalid_fraction
+  thresholds:
+    min_sample_count: 3
+    quality_min: 0.40
+    invalid_fraction_max: 0.40
+    no_target_presence_max: 0.20
+    valid_presence_min: 0.50
+    stable_motion_max: 0.35
+    motion_min: 0.35
+  trust:
+    valid_stable: 0.90
+    valid_motion: 0.65
+    no_target: 0.30
+    radar_invalid: 0.00
+
+evaluation:
+  target_column: radar_state_label
+  prediction_column: radar_state

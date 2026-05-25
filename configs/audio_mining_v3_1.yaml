@@ -1,0 +1,87 @@
+project:
+  name: audio_mining_v3_1
+  seed: 42
+
+paths:
+  manifest_csv: results/mining/v3_1/manifest.csv
+  v3_board_scores_csv: results/mining/v3_1/v3_board_scores.csv
+  yamnet_scores_csv: results/mining/v3_1/yamnet_scores.csv
+  review_plan_csv: review/v3_1_mining/review_plan.csv
+  review_dir: review/v3_1_mining
+  candidate_labels_csv: data/labels/audio_labels_v3_1_candidate.csv
+  candidate_sessions_csv: data/labels/audio_labels_v3_1_candidate_sessions.csv
+  candidate_report_md: docs/experiments/audio_labels_v3_1_candidate_report.md
+  pipeline_report_md: docs/experiments/audio_v3_1_data_mining_pipeline_report.md
+  check_out_dir: results/check_audio_labels_v3_1_candidate
+  preprocess_smoke_dir: results/preprocess_smoke_v3_1_candidate
+  one_epoch_smoke_dir: results/one_epoch_smoke_v3_1_candidate
+
+mining:
+  missing_source_policy: warn
+  pcm_defaults:
+    sample_rate: 16000
+    channels: 1
+    sample_width_bytes: 2
+    encoding: s16le
+  sources:
+    - source_domain: board_live_false_alarm
+      path: D:/cough_model_train/DATA/board_live_false_alarm
+      scenario_hint: board_false_alarm
+      extensions: [".wav", ".pcm", ".raw"]
+    - source_domain: board_live_cough
+      path: D:/cough_model_train/DATA/board_live_cough
+      scenario_hint: board_live_cough
+      extensions: [".wav", ".pcm", ".raw"]
+    - source_domain: board_live_clean_non_cough
+      path: D:/cough_model_train/DATA/board_live_clean_non_cough
+      scenario_hint: board_live_clean_non_cough
+      extensions: [".wav", ".pcm", ".raw"]
+    - source_domain: external_cough_ready
+      path: D:/cough_model_train/DATA/cough/cough_READY/cough
+      scenario_hint: external_cough_ready
+      extensions: [".wav"]
+
+model:
+  config: configs/audio_baseline_v3_board_htk_hardneg.yaml
+  checkpoint: models/audio/audio_baseline_v3_board_htk_hardneg/best_model.pt
+  threshold_075: 0.75
+  threshold_095: 0.95
+
+yamnet:
+  model_handle: https://tfhub.dev/google/yamnet/1
+  rules_config: configs/yamnet_hard_mining.yaml
+  tfhub_cache_dir: .cache/tfhub
+  cough_support_threshold: 0.20
+  low_cough_threshold: 0.05
+
+audio:
+  sample_rate: 16000
+  window_seconds: 1.0
+  hop_seconds: 0.5
+
+review:
+  high_confidence_false_alarm_min: 0.95
+  false_alarm_min: 0.75
+  uncertain_min: 0.40
+  clean_non_cough_max: 0.30
+  max_per_source: 1
+  min_start_gap_sec: 5.0
+  quotas:
+    high_confidence_board_false_alarm_review: 800
+    board_false_alarm_review: 400
+    board_uncertain_review: 400
+    board_clean_non_cough_candidate: 200
+    board_cough_candidate_review: 400
+  priorities:
+    high_confidence_board_false_alarm_review: highest
+    board_false_alarm_review: highest
+    board_uncertain_review: medium
+    board_clean_non_cough_candidate: low
+    board_cough_candidate_review: high
+
+opera:
+  enabled: false
+  reserved_fields:
+    - opera_cough_score
+    - opera_hard_negative_score
+    - opera_rank

@@ -1,0 +1,78 @@
+project:
+  name: health_monitor_ai
+  seed: 42
+
+paths:
+  # Parsed radar CSV only. Do not point this at UART raw bytes.
+  input_csv: data/processed/radar/parsed_radar_v1.csv
+  output_dir: data/processed/radar_assist_v1
+  windows_csv: data/processed/radar_assist_v1/radar_windows_v1.csv
+  features_csv: data/processed/radar_assist_v1/radar_features_v1.csv
+  inspect_report: results/radar_assist_v1/inspect_report.json
+  results_dir: results/radar_assist_v1
+
+radar:
+  input_format: parsed_csv
+  timestamp_column: timestamp
+  required_columns:
+    - timestamp
+    - presence_score
+    - motion_score
+  optional_columns:
+    - session_id
+    - person_id
+    - rr
+    - hr
+    - phase_amp
+    - phase_var
+    - quality_score
+  group_columns:
+    - session_id
+    - person_id
+  numeric_columns:
+    - presence_score
+    - motion_score
+    - rr
+    - hr
+    - phase_amp
+    - phase_var
+    - quality_score
+  clip_ranges:
+    presence_score: [0.0, 1.0]
+    motion_score: [0.0, 1.0]
+    quality_score: [0.0, 1.0]
+    rr: [0.0, 80.0]
+    hr: [0.0, 220.0]
+  window_seconds: 5.0
+  hop_seconds: 2.5
+  min_samples_per_window: 3
+
+features:
+  columns:
+    - presence_score
+    - motion_score
+    - rr
+    - hr
+    - phase_amp
+    - phase_var
+    - quality_score
+  stats:
+    - mean
+    - std
+    - min
+    - max
+    - median
+    - p10
+    - p90
+    - last
+    - delta
+    - missing_fraction
+
+split:
+  group_column: person_id
+  train_ratio: 0.7
+  val_ratio: 0.15
+  test_ratio: 0.15
+
+run:
+  name: radar_features_v1

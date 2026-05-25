@@ -1,0 +1,132 @@
+data/raw/
+data/processed/
+data/hard_data/
+data/mining_candidates/
+DATA/hard_data/
+data/human_review/**/*.wav
+data/human_review/**/*.flac
+data/human_review/**/*.mp3
+data/human_review/**/*.m4a
+data/human_review/**/*.ogg
+data/human_review/**/*.aac
+data/human_review/**/*.bin
+data/human_review/**/clips/
+models/
+results/
+archives/
+review/**/*.wav
+review/**/*.flac
+review/**/*.mp3
+review/**/*.m4a
+review/**/*.ogg
+review/**/*.aac
+review/**/*.bin
+review/**/clips/
+# Generated deploy artifacts (model builds)
+deploy/audio_v3_1_fpfix/
+deploy/audio_v3_board_htk_hardneg/
+
+# Generated deploy test vectors (not the validated audio/ directory)
+deploy/test_vectors/audio_v3_1_fpfix/
+deploy/test_vectors/audio_v3_board_htk_hardneg/
+deploy/test_vectors/**/*.bin
+deploy/test_vectors/audio/audio_test_vectors.h
+
+# Generated data indices
+data/index/
+
+# Human review audio clips
+data/human_review/
+
+# Generated review artifacts
+review/board_live_data_1/
+review/v3_1_mining/
+review/v3_1_mining_smoke/
+review/yamnet_full_non_cough_merged/
+review/yamnet_full_non_cough_v1/
+review/yamnet_full_non_cough_v2/
+
+# ML experiment tracking
+ml/
+
+# Claude Code personal config
+.claude/
+*.wav
+*.flac
+*.mp3
+*.m4a
+*.ogg
+*.aac
+*.raw
+*.dat
+*.bin
+*.npy
+*.npz
+*.pt
+*.pth
+*.onnx
+*.tflite
+*.h5
+*.keras
+*.ckpt
+*.pb
+*.pkl
+*.joblib
+*.safetensors
+*.zip
+*.7z
+*.tar
+*.tar.gz
+
+# Python
+__pycache__/
+*.egg-info/
+dist/
+build/
+*.egg
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.coverage
+coverage/
+htmlcov/
+*.log
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE / Editor
+.vscode/
+.idea/
+.vs/
+*.swp
+*.swo
+*~
+.history/
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Environment / Dependencies
+.env
+.env.*
+.venv/
+.venv_yamnet/
+.cache/
+.codex_tmp/
+
+# ML Experiment Tracking
+mlruns/
+wandb/
+lightning_logs/
+runs/
+
+# Config local overrides
+*.local.yaml
+*.local.yml
+
+# Generated databases
+*.db

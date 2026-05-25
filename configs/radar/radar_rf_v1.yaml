@@ -1,0 +1,42 @@
+project:
+  name: health_monitor_ai
+  seed: 42
+
+paths:
+  features_csv: data/processed/radar_assist_v1/radar_features_v1.csv
+  predictions_csv: data/processed/radar_assist_v1/radar_rf_v1_predictions.csv
+  model_path: models/radar/radar_rf_v1.joblib
+  metrics_json: results/radar_assist_v1/radar_rf_metrics.json
+  feature_importance_csv: results/radar_assist_v1/radar_rf_feature_importance.csv
+  results_dir: results/radar_assist_v1
+
+split:
+  group_column: person_id
+  train_ratio: 0.7
+  val_ratio: 0.15
+  test_ratio: 0.15
+
+training:
+  model: random_forest
+  target_column: radar_state_label
+  n_estimators: 100
+  max_depth: 6
+  min_samples_leaf: 3
+  class_weight: balanced
+  random_state: 42
+
+features:
+  exclude_columns:
+    - window_id
+    - session_id
+    - person_id
+    - split
+    - radar_state
+    - radar_state_label
+    - rule_reason
+    - trust_factor
+    - radar_quality_score
+
+evaluation:
+  target_column: radar_state_label
+  prediction_column: pred_radar_state

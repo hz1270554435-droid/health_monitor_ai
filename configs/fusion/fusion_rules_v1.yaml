@@ -1,0 +1,32 @@
+project:
+  name: health_monitor_ai
+  seed: 42
+
+paths:
+  audio_predictions_csv: results/audio/latest/audio_predictions.csv
+  radar_rules_csv: data/processed/radar_assist_v1/radar_rules_v1.csv
+  output_csv: data/processed/fusion_rules_v1/fusion_rules_v1.csv
+  metrics_json: results/fusion_rules_v1/metrics.json
+  results_dir: results/fusion_rules_v1
+
+fusion:
+  first_version: rule_based
+  inputs:
+    - audio_cough_probability
+    - radar_state
+    - radar_quality_score
+    - trust_factor
+  outputs:
+    - normal
+    - attention
+    - warning
+    - invalid
+
+rules:
+  warning_cough_probability: 0.80
+  attention_cough_probability: 0.50
+  min_radar_quality_score: 0.40
+  min_trust_factor: 0.30
+  radar_downweight_states:
+    - no_target
+    - radar_invalid

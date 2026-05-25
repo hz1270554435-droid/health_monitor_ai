@@ -1,0 +1,79 @@
+project:
+  name: yamnet_hard_mining_v1
+  sample_rate: 16000
+
+yamnet:
+  model_handle: https://tfhub.dev/google/yamnet/1
+  class_groups:
+    cough:
+      - Cough
+    sneeze:
+      - Sneeze
+    speech:
+      - Speech
+      - Conversation
+      - Narration
+      - Child speech
+      - Babbling
+    laughter:
+      - Laughter
+      - Giggle
+      - Chuckle
+    breathing:
+      - Breathing
+      - Snoring
+      - Wheeze
+      - Respiratory sounds
+    throat_like:
+      - Throat clearing
+      - Gargling
+      - Burp
+      - Snort
+
+decision_rules:
+  silence_min_rms: 0.003
+  min_window_fraction: 0.8
+  pseudo_cough_candidate:
+    baseline_cough_prob_min: 0.90
+    yamnet_cough_score_min: 0.20
+    review_priority: high
+    sample_weight: 0.5
+    reason: baseline_high_and_yamnet_cough
+  hard_negative_review:
+    baseline_cough_prob_min: 0.75
+    yamnet_cough_score_max: 0.20
+    yamnet_sneeze_score_min: 0.15
+    yamnet_speech_score_min: 0.20
+    yamnet_laughter_score_min: 0.15
+    yamnet_breathing_score_min: 0.15
+    yamnet_throat_like_score_min: 0.10
+    review_priority: highest
+    sample_weight: 1.0
+    reason: baseline_false_alarm_like_non_cough
+  baseline_suspicious_review:
+    negative_source_keywords:
+      - hard_data
+      - Negative
+      - non_cough
+    baseline_cough_prob_min: 0.60
+    yamnet_cough_score_max: 0.10
+    review_priority: highest
+    sample_weight: 1.0
+    reason: baseline_high_yamnet_low_cough_on_negative_source
+  pseudo_non_cough_candidate:
+    baseline_cough_prob_max: 0.05
+    yamnet_cough_score_max: 0.05
+    yamnet_sneeze_score_max: 0.10
+    review_priority: low
+    sample_weight: 0.3
+    reason: both_models_low_cough
+  uncertain_review:
+    baseline_cough_prob_min: 0.40
+    baseline_cough_prob_max: 0.85
+    conflict_baseline_high: 0.75
+    conflict_baseline_low: 0.10
+    conflict_yamnet_cough_low: 0.05
+    conflict_yamnet_cough_high: 0.20
+    review_priority: medium
+    sample_weight: 0.0
+    reason: model_disagreement_or_near_threshold

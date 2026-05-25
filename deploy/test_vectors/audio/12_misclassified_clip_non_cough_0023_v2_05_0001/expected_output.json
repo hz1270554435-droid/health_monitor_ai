@@ -1,0 +1,16 @@
+{
+  "sample_id": "clip_non_cough_0023_v2_05_0001",
+  "audio_file": "data/formal_audio_50/non_cough_0023.wav",
+  "true_label": "non_cough",
+  "pytorch_logits": [
+    -1.0244786739349365,
+    1.2235114574432373
+  ],
+  "onnx_logits": [
+    -1.0244779586791992,
+    1.2235107421875
+  ],
+  "cough_prob": 0.9044768810272217,
+  "threshold": 0.75,
+  "expected_pred_label": "cough"
+}
