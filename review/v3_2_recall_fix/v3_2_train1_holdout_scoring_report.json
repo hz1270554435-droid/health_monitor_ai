@@ -1,0 +1,838 @@
+{
+  "status": "passed",
+  "config": "D:\\cough_model_train\\health_monitor_ai\\configs\\audio_baseline_v3_2_recall_fix.yaml",
+  "checkpoint": "D:\\cough_model_train\\health_monitor_ai\\models\\audio_v3_2_recall_fix\\audio_baseline_v3_2_recall_fix_train1\\best_model.pt",
+  "manifest": "D:\\cough_model_train\\health_monitor_ai\\review\\v3_2_recall_fix\\window_manifest_combined.csv",
+  "v3_1_scored_manifest": "D:\\cough_model_train\\health_monitor_ai\\review\\v3_2_recall_fix\\v3_1_fpfix_onnx_scored_manifest_combined_corrected.csv",
+  "resolved_model_name": "ds_cnn",
+  "frontend": {
+    "status": "passed",
+    "checks": {
+      "frontend": true,
+      "sample_rate": true,
+      "mono": true,
+      "window_seconds": true,
+      "hop_seconds": true,
+      "n_mels": true,
+      "mel_scale_htk": true,
+      "normalize_none": true,
+      "class_order": true,
+      "expected_input_shape": true
+    },
+    "summary": {
+      "sample_rate": 16000,
+      "channels": "mono",
+      "window_sec": 1.0,
+      "hop_sec": 0.5,
+      "feature": "40-bin HTK Log-Mel",
+      "normalization": "none",
+      "class_order": [
+        "non_cough",
+        "cough"
+      ],
+      "expected_input_shape": [
+        1,
+        1,
+        40,
+        101
+      ]
+    }
+  },
+  "class_order": [
+    "non_cough",
+    "cough"
+  ],
+  "expected_input_shape": [
+    1,
+    1,
+    40,
+    101
+  ],
+  "observed_input_shapes": [
+    [
+      1,
+      1,
+      40,
+      101
+    ]
+  ],
+  "rows": {
+    "manifest": 8687,
+    "scored": 8687,
+    "joined_v3_1": 8687
+  },
+  "manifest_validation": {
+    "rows": 8687,
+    "unique_audio_files": 73,
+    "fs_counts": {
+      "16000": 8687
+    },
+    "channel_counts": {
+      "1": 8687
+    },
+    "ml_data_raw_hits": []
+  },
+  "join_validation": {
+    "window_manifest_rows": 8687,
+    "v3_1_scored_rows": 8687,
+    "joined_rows": 8687,
+    "missing_score_rows": 0,
+    "duplicate_v3_1_keys": 0,
+    "strict_validation": {
+      "scored_rows_eq_window_manifest_rows": true,
+      "joined_rows_eq_scored_rows": true,
+      "missing_score_rows_eq_0": true
+    },
+    "v3_2_scored_rows": 8687,
+    "missing_v3_2_score_rows": 0,
+    "strict_scored_rows_eq_manifest": true
+  },
+  "audio": {
+    "path_resolution_counts": {
+      "original_path": 8687,
+      "source_audio": 0,
+      "audio_file": 0
+    },
+    "files_loaded": 73,
+    "source_policy": "original_path -> source_audio -> audio_file",
+    "channel_handling": "16 kHz mono via librosa.load(..., mono=True)"
+  },
+  "proxy_findings": {
+    "p01_cough_session_activation_rate": {
+      "threshold_0_50": {
+        "v3_1": {
+          "rows": 979,
+          "activations": 103,
+          "activation_rate": 0.10520939734422881
+        },
+        "v3_2": {
+          "rows": 979,
+          "activations": 347,
+          "activation_rate": 0.35444330949948927
+        }
+      },
+      "threshold_0_60": {
+        "v3_1": {
+          "rows": 979,
+          "activations": 61,
+          "activation_rate": 0.06230847803881512
+        },
+        "v3_2": {
+          "rows": 979,
+          "activations": 303,
+          "activation_rate": 0.30949948927477017
+        }
+      }
+    },
+    "p02_cough_session_activation_rate": {
+      "threshold_0_50": {
+        "v3_1": {
+          "rows": 876,
+          "activations": 148,
+          "activation_rate": 0.1689497716894977
+        },
+        "v3_2": {
+          "rows": 876,
+          "activations": 315,
+          "activation_rate": 0.3595890410958904
+        }
+      }
+    },
+    "p03_cough_session_activation_rate": {
+      "threshold_0_50": {
+        "v3_1": {
+          "rows": 874,
+          "activations": 140,
+          "activation_rate": 0.16018306636155608
+        },
+        "v3_2": {
+          "rows": 874,
+          "activations": 384,
+          "activation_rate": 0.43935926773455375
+        }
+      },
+      "threshold_0_60": {
+        "v3_1": {
+          "rows": 874,
+          "activations": 91,
+          "activation_rate": 0.10411899313501144
+        },
+        "v3_2": {
+          "rows": 874,
+          "activations": 332,
+          "activation_rate": 0.37986270022883295
+        }
+      }
+    },
+    "long_quiet_fp_hour": {
+      "v3_1": [
+        {
+          "threshold": 0.3,
+          "window_level_fp_windows": 133,
+          "event_level_fp_events": 94,
+          "duration_hours": 48.37679444444444,
+          "window_level_fp_per_hour": 2.7492520231520556,
+          "event_level_fp_per_hour": 1.9430803772653624
+        },
+        {
+          "threshold": 0.5,
+          "window_level_fp_windows": 37,
+          "event_level_fp_events": 31,
+          "duration_hours": 48.37679444444444,
+          "window_level_fp_per_hour": 0.7648295102001959,
+          "event_level_fp_per_hour": 0.6408031031407047
+        },
+        {
+          "threshold": 0.6,
+          "window_level_fp_windows": 18,
+          "event_level_fp_events": 15,
+          "duration_hours": 48.37679444444444,
+          "window_level_fp_per_hour": 0.3720792211784737,
+          "event_level_fp_per_hour": 0.31006601764872804
+        },
+        {
+          "threshold": 0.7,
+          "window_level_fp_windows": 3,
+          "event_level_fp_events": 3,
+          "duration_hours": 48.37679444444444,
+          "window_level_fp_per_hour": 0.06201320352974561,
+          "event_level_fp_per_hour": 0.06201320352974561
+        },
+        {
+          "threshold": 0.8,
+          "window_level_fp_windows": 0,
+          "event_level_fp_events": 0,
+          "duration_hours": 48.37679444444444,
+          "window_level_fp_per_hour": 0.0,
+          "event_level_fp_per_hour": 0.0
+        },
+        {
+          "threshold": 0.9,
+          "window_level_fp_windows": 0,
+          "event_level_fp_events": 0,
+          "duration_hours": 48.37679444444444,
+          "window_level_fp_per_hour": 0.0,
+          "event_level_fp_per_hour": 0.0
+        },
+        {
+          "threshold": 0.95,
+          "window_level_fp_windows": 0,
+          "event_level_fp_events": 0,
+          "duration_hours": 48.37679444444444,
+          "window_level_fp_per_hour": 0.0,
+          "event_level_fp_per_hour": 0.0
+        }
+      ],
+      "v3_2": [
+        {
+          "threshold": 0.3,
+          "window_level_fp_windows": 3,
+          "event_level_fp_events": 3,
+          "duration_hours": 48.37679444444444,
+          "window_level_fp_per_hour": 0.06201320352974561,
+          "event_level_fp_per_hour": 0.06201320352974561
+        },
+        {
+          "threshold": 0.5,
+          "window_level_fp_windows": 0,
+          "event_level_fp_events": 0,
+          "duration_hours": 48.37679444444444,
+          "window_level_fp_per_hour": 0.0,
+          "event_level_fp_per_hour": 0.0
+        },
+        {
+          "threshold": 0.6,
+          "window_level_fp_windows": 0,
+          "event_level_fp_events": 0,
+          "duration_hours": 48.37679444444444,
+          "window_level_fp_per_hour": 0.0,
+          "event_level_fp_per_hour": 0.0
+        },
+        {
+          "threshold": 0.7,
+          "window_level_fp_windows": 0,
+          "event_level_fp_events": 0,
+          "duration_hours": 48.37679444444444,
+          "window_level_fp_per_hour": 0.0,
+          "event_level_fp_per_hour": 0.0
+        },
+        {
+          "threshold": 0.8,
+          "window_level_fp_windows": 0,
+          "event_level_fp_events": 0,
+          "duration_hours": 48.37679444444444,
+          "window_level_fp_per_hour": 0.0,
+          "event_level_fp_per_hour": 0.0
+        },
+        {
+          "threshold": 0.9,
+          "window_level_fp_windows": 0,
+          "event_level_fp_events": 0,
+          "duration_hours": 48.37679444444444,
+          "window_level_fp_per_hour": 0.0,
+          "event_level_fp_per_hour": 0.0
+        },
+        {
+          "threshold": 0.95,
+          "window_level_fp_windows": 0,
+          "event_level_fp_events": 0,
+          "duration_hours": 48.37679444444444,
+          "window_level_fp_per_hour": 0.0,
+          "event_level_fp_per_hour": 0.0
+        }
+      ]
+    }
+  },
+  "comparison_by_scenario": [
+    {
+      "scenario_canonical": "cough",
+      "rows": 2729,
+      "fpfix_cough_prob": {
+        "min": 8.559864021188724e-05,
+        "p50": 0.0992676811151592,
+        "p90": 0.5906030088574482,
+        "p95": 0.7105804254484761,
+        "max": 0.9598773235101532
+      },
+      "v3_2_cough_prob": {
+        "min": 0.00022557759075425565,
+        "p50": 0.3116665184497833,
+        "p90": 0.9589969992637635,
+        "p95": 0.9823576092720031,
+        "max": 0.9991705417633057
+      },
+      "delta_cough_prob": {
+        "p50": 0.16238323288677653,
+        "p90": 0.6571653711434303,
+        "p95": 0.7625511054009477
+      },
+      "delta_mean": 0.22080505555534471,
+      "delta_positive_rows": 2173,
+      "delta_negative_rows": 556
+    },
+    {
+      "scenario_canonical": "mixed_non_cough",
+      "rows": 641,
+      "fpfix_cough_prob": {
+        "min": 1.7832201916865892e-09,
+        "p50": 0.0755627707984797,
+        "p90": 0.5952954930626658,
+        "p95": 0.714160272232921,
+        "max": 0.8676524516305708
+      },
+      "v3_2_cough_prob": {
+        "min": 7.972209914441919e-08,
+        "p50": 0.0035558901727199554,
+        "p90": 0.26127713918685913,
+        "p95": 0.4902898669242859,
+        "max": 0.8401932716369629
+      },
+      "delta_cough_prob": {
+        "p50": -0.02484639543386966,
+        "p90": 0.12766178590066246,
+        "p95": 0.2567623181798381
+      },
+      "delta_mean": -0.11934367344405922,
+      "delta_positive_rows": 221,
+      "delta_negative_rows": 420
+    },
+    {
+      "scenario_canonical": "quiet",
+      "rows": 3407,
+      "fpfix_cough_prob": {
+        "min": 8.377032063298225e-10,
+        "p50": 0.0185300846646158,
+        "p90": 0.1821172498156429,
+        "p95": 0.28289046326578887,
+        "max": 0.7965140399426701
+      },
+      "v3_2_cough_prob": {
+        "min": 1.09140032122923e-07,
+        "p50": 0.004750443156808615,
+        "p90": 0.05127259865403176,
+        "p95": 0.1615571513772009,
+        "max": 0.8578166365623474
+      },
+      "delta_cough_prob": {
+        "p50": -0.007497650626443978,
+        "p90": 0.021077689451335382,
+        "p95": 0.11381169136381765
+      },
+      "delta_mean": -0.03274463206809475,
+      "delta_positive_rows": 1120,
+      "delta_negative_rows": 2287
+    },
+    {
+      "scenario_canonical": "sniff",
+      "rows": 174,
+      "fpfix_cough_prob": {
+        "min": 0.0008598981875572,
+        "p50": 0.04138974138090425,
+        "p90": 0.2578823075534669,
+        "p95": 0.3714488400983225,
+        "max": 0.7638514732760858
+      },
+      "v3_2_cough_prob": {
+        "min": 0.0030069262720644474,
+        "p50": 0.19983024895191193,
+        "p90": 0.6511545360088351,
+        "p95": 0.7335114479064941,
+        "max": 0.9499197006225586
+      },
+      "delta_cough_prob": {
+        "p50": 0.08892109009385073,
+        "p90": 0.5575224762856029,
+        "p95": 0.6574008511579318
+      },
+      "delta_mean": 0.18013478126836696,
+      "delta_positive_rows": 138,
+      "delta_negative_rows": 36
+    },
+    {
+      "scenario_canonical": "speech",
+      "rows": 1198,
+      "fpfix_cough_prob": {
+        "min": 3.044173590091262e-08,
+        "p50": 0.01691343198106935,
+        "p90": 0.22844434442489062,
+        "p95": 0.39143472194477114,
+        "max": 0.9422851220797333
+      },
+      "v3_2_cough_prob": {
+        "min": 1.4686110993977763e-08,
+        "p50": 0.054352590814232826,
+        "p90": 0.5327000975608825,
+        "p95": 0.7105151444673535,
+        "max": 0.9732139706611633
+      },
+      "delta_cough_prob": {
+        "p50": 0.01587665227594772,
+        "p90": 0.39581089527218594,
+        "p95": 0.5726980831168041
+      },
+      "delta_mean": 0.08805120551428908,
+      "delta_positive_rows": 823,
+      "delta_negative_rows": 375
+    },
+    {
+      "scenario_canonical": "throat_clear",
+      "rows": 538,
+      "fpfix_cough_prob": {
+        "min": 0.0002517660636105,
+        "p50": 0.10484800384024805,
+        "p90": 0.48333229004757644,
+        "p95": 0.5949233409747122,
+        "max": 0.8990117826537047
+      },
+      "v3_2_cough_prob": {
+        "min": 0.0013333115493878722,
+        "p50": 0.35840755701065063,
+        "p90": 0.8474259436130523,
+        "p95": 0.9296010166406631,
+        "max": 0.991054356098175
+      },
+      "delta_cough_prob": {
+        "p50": 0.1832564401936122,
+        "p90": 0.6508857086217228,
+        "p95": 0.7635894980976682
+      },
+      "delta_mean": 0.2235396730207621,
+      "delta_positive_rows": 433,
+      "delta_negative_rows": 105
+    }
+  ],
+  "comparison_by_split_role": [
+    {
+      "split_role_suggested": "distance_extrap_eval",
+      "rows": 640,
+      "fpfix_cough_prob": {
+        "min": 0.0001093544568003,
+        "p50": 0.06654987691278416,
+        "p90": 0.5544589715512783,
+        "p95": 0.6874486638067685,
+        "max": 0.907949665991421
+      },
+      "v3_2_cough_prob": {
+        "min": 0.0017139960546046495,
+        "p50": 0.274223729968071,
+        "p90": 0.9602446079254151,
+        "p95": 0.983367744088173,
+        "max": 0.9991705417633057
+      },
+      "delta_cough_prob": {
+        "p50": 0.1710910810671398,
+        "p90": 0.6298520717579315,
+        "p95": 0.7480984787806659
+      },
+      "delta_mean": 0.22563553980387913,
+      "delta_positive_rows": 543,
+      "delta_negative_rows": 97
+    },
+    {
+      "split_role_suggested": "fp_guard_hard_negative_candidate",
+      "rows": 641,
+      "fpfix_cough_prob": {
+        "min": 1.7832201916865892e-09,
+        "p50": 0.0755627707984797,
+        "p90": 0.5952954930626658,
+        "p95": 0.714160272232921,
+        "max": 0.8676524516305708
+      },
+      "v3_2_cough_prob": {
+        "min": 7.972209914441919e-08,
+        "p50": 0.0035558901727199554,
+        "p90": 0.26127713918685913,
+        "p95": 0.4902898669242859,
+        "max": 0.8401932716369629
+      },
+      "delta_cough_prob": {
+        "p50": -0.02484639543386966,
+        "p90": 0.12766178590066246,
+        "p95": 0.2567623181798381
+      },
+      "delta_mean": -0.11934367344405922,
+      "delta_positive_rows": 221,
+      "delta_negative_rows": 420
+    },
+    {
+      "split_role_suggested": "long_quiet_eval",
+      "rows": 2930,
+      "fpfix_cough_prob": {
+        "min": 8.377032063298225e-10,
+        "p50": 0.0171415542203813,
+        "p90": 0.1821111238421734,
+        "p95": 0.28824548536324707,
+        "max": 0.7965140399426701
+      },
+      "v3_2_cough_prob": {
+        "min": 7.643524213563069e-07,
+        "p50": 0.0039383163675665855,
+        "p90": 0.02386132329702377,
+        "p95": 0.04162332005798813,
+        "max": 0.39023420214653015
+      },
+      "delta_cough_prob": {
+        "p50": -0.009848559040011248,
+        "p90": 0.006747973677855443,
+        "p95": 0.015834967614382953
+      },
+      "delta_mean": -0.05171012462965503,
+      "delta_positive_rows": 845,
+      "delta_negative_rows": 2085
+    },
+    {
+      "split_role_suggested": "smoke_negative",
+      "rows": 1911,
+      "fpfix_cough_prob": {
+        "min": 3.044173590091262e-08,
+        "p50": 0.0274292709458078,
+        "p90": 0.2553094004307263,
+        "p95": 0.4198822936807875,
+        "max": 0.9422851220797333
+      },
+      "v3_2_cough_prob": {
+        "min": 1.4686110993977763e-08,
+        "p50": 0.07473595440387726,
+        "p90": 0.5720521807670593,
+        "p95": 0.7161815762519836,
+        "max": 0.9788420796394348
+      },
+      "delta_cough_prob": {
+        "p50": 0.02112437450495292,
+        "p90": 0.4385861579597071,
+        "p95": 0.5915931462843051
+      },
+      "delta_mean": 0.09750580207379812,
+      "delta_positive_rows": 1272,
+      "delta_negative_rows": 639
+    },
+    {
+      "split_role_suggested": "train_candidate",
+      "rows": 1453,
+      "fpfix_cough_prob": {
+        "min": 8.559864021188724e-05,
+        "p50": 0.0812137894833397,
+        "p90": 0.5614884888267989,
+        "p95": 0.6816497117781084,
+        "max": 0.9598773235101532
+      },
+      "v3_2_cough_prob": {
+        "min": 0.00022557759075425565,
+        "p50": 0.2776198387145996,
+        "p90": 0.9588429927825928,
+        "p95": 0.9842829227447509,
+        "max": 0.998946487903595
+      },
+      "delta_cough_prob": {
+        "p50": 0.1447043007595662,
+        "p90": 0.6356796306044293,
+        "p95": 0.7434992753975808
+      },
+      "delta_mean": 0.2079126458558853,
+      "delta_positive_rows": 1142,
+      "delta_negative_rows": 311
+    },
+    {
+      "split_role_suggested": "unseen_person_eval",
+      "rows": 1112,
+      "fpfix_cough_prob": {
+        "min": 0.0001793065983814,
+        "p50": 0.12299364181762565,
+        "p90": 0.5840209229342305,
+        "p95": 0.7045388970862426,
+        "max": 0.93745457157699
+      },
+      "v3_2_cough_prob": {
+        "min": 0.0015963840996846557,
+        "p50": 0.40273822844028473,
+        "p90": 0.9382605791091919,
+        "p95": 0.9655172049999238,
+        "max": 0.9968241453170776
+      },
+      "delta_cough_prob": {
+        "p50": 0.1927811678525653,
+        "p90": 0.6942146711671154,
+        "p95": 0.7946239330604088
+      },
+      "delta_mean": 0.23991225978893713,
+      "delta_positive_rows": 885,
+      "delta_negative_rows": 227
+    }
+  ],
+  "comparison_by_person": [
+    {
+      "person_id_for_analysis": "background",
+      "rows": 3407,
+      "fpfix_cough_prob": {
+        "min": 8.377032063298225e-10,
+        "p50": 0.0185300846646158,
+        "p90": 0.1821172498156429,
+        "p95": 0.28289046326578887,
+        "max": 0.7965140399426701
+      },
+      "v3_2_cough_prob": {
+        "min": 1.09140032122923e-07,
+        "p50": 0.004750443156808615,
+        "p90": 0.05127259865403176,
+        "p95": 0.1615571513772009,
+        "max": 0.8578166365623474
+      },
+      "delta_cough_prob": {
+        "p50": -0.007497650626443978,
+        "p90": 0.021077689451335382,
+        "p95": 0.11381169136381765
+      },
+      "delta_mean": -0.03274463206809475,
+      "delta_positive_rows": 1120,
+      "delta_negative_rows": 2287
+    },
+    {
+      "person_id_for_analysis": "background_or_together",
+      "rows": 1198,
+      "fpfix_cough_prob": {
+        "min": 3.044173590091262e-08,
+        "p50": 0.01691343198106935,
+        "p90": 0.22844434442489062,
+        "p95": 0.39143472194477114,
+        "max": 0.9422851220797333
+      },
+      "v3_2_cough_prob": {
+        "min": 1.4686110993977763e-08,
+        "p50": 0.054352590814232826,
+        "p90": 0.5327000975608825,
+        "p95": 0.7105151444673535,
+        "max": 0.9732139706611633
+      },
+      "delta_cough_prob": {
+        "p50": 0.01587665227594772,
+        "p90": 0.39581089527218594,
+        "p95": 0.5726980831168041
+      },
+      "delta_mean": 0.08805120551428908,
+      "delta_positive_rows": 823,
+      "delta_negative_rows": 375
+    },
+    {
+      "person_id_for_analysis": "non_person_noise",
+      "rows": 641,
+      "fpfix_cough_prob": {
+        "min": 1.7832201916865892e-09,
+        "p50": 0.0755627707984797,
+        "p90": 0.5952954930626658,
+        "p95": 0.714160272232921,
+        "max": 0.8676524516305708
+      },
+      "v3_2_cough_prob": {
+        "min": 7.972209914441919e-08,
+        "p50": 0.0035558901727199554,
+        "p90": 0.26127713918685913,
+        "p95": 0.4902898669242859,
+        "max": 0.8401932716369629
+      },
+      "delta_cough_prob": {
+        "p50": -0.02484639543386966,
+        "p90": 0.12766178590066246,
+        "p95": 0.2567623181798381
+      },
+      "delta_mean": -0.11934367344405922,
+      "delta_positive_rows": 221,
+      "delta_negative_rows": 420
+    },
+    {
+      "person_id_for_analysis": "p01",
+      "rows": 1217,
+      "fpfix_cough_prob": {
+        "min": 0.0001144628558287,
+        "p50": 0.0512259551655079,
+        "p90": 0.47504908478421104,
+        "p95": 0.6051664800692234,
+        "max": 0.9177432835389896
+      },
+      "v3_2_cough_prob": {
+        "min": 0.0013333115493878722,
+        "p50": 0.26538506150245667,
+        "p90": 0.9461366176605226,
+        "p95": 0.9782329320907592,
+        "max": 0.9971795082092285
+      },
+      "delta_cough_prob": {
+        "p50": 0.17692852714529275,
+        "p90": 0.6710416832068696,
+        "p95": 0.7647122347289256
+      },
+      "delta_mean": 0.24237018152783157,
+      "delta_positive_rows": 1040,
+      "delta_negative_rows": 177
+    },
+    {
+      "person_id_for_analysis": "p02",
+      "rows": 1112,
+      "fpfix_cough_prob": {
+        "min": 8.559864021188724e-05,
+        "p50": 0.1260108072739721,
+        "p90": 0.6298647220646235,
+        "p95": 0.7480623135881465,
+        "max": 0.9598773235101532
+      },
+      "v3_2_cough_prob": {
+        "min": 0.00022557759075425565,
+        "p50": 0.2977570593357086,
+        "p90": 0.9540617465972899,
+        "p95": 0.9850344628095627,
+        "max": 0.9991705417633057
+      },
+      "delta_cough_prob": {
+        "p50": 0.1233813303585217,
+        "p90": 0.5763521205920343,
+        "p95": 0.6776044264070682
+      },
+      "delta_mean": 0.17305561945299683,
+      "delta_positive_rows": 819,
+      "delta_negative_rows": 293
+    },
+    {
+      "person_id_for_analysis": "p03",
+      "rows": 1112,
+      "fpfix_cough_prob": {
+        "min": 0.0001793065983814,
+        "p50": 0.12299364181762565,
+        "p90": 0.5840209229342305,
+        "p95": 0.7045388970862426,
+        "max": 0.93745457157699
+      },
+      "v3_2_cough_prob": {
+        "min": 0.0015963840996846557,
+        "p50": 0.40273822844028473,
+        "p90": 0.9382605791091919,
+        "p95": 0.9655172049999238,
+        "max": 0.9968241453170776
+      },
+      "delta_cough_prob": {
+        "p50": 0.1927811678525653,
+        "p90": 0.6942146711671154,
+        "p95": 0.7946239330604088
+      },
+      "delta_mean": 0.23991225978893713,
+      "delta_positive_rows": 885,
+      "delta_negative_rows": 227
+    }
+  ],
+  "fp_source_ranking_threshold_0_50": [
+    {
+      "scenario_canonical": "throat_clear",
+      "rows": 538,
+      "v3_1_fp": 47,
+      "v3_2_fp": 178,
+      "delta_fp": 131,
+      "v3_2_max": 0.991054356098175,
+      "v3_2_p95": 0.9296010166406631
+    },
+    {
+      "scenario_canonical": "speech",
+      "rows": 1198,
+      "v3_1_fp": 38,
+      "v3_2_fp": 135,
+      "delta_fp": 97,
+      "v3_2_max": 0.9732139706611633,
+      "v3_2_p95": 0.7105151444673535
+    },
+    {
+      "scenario_canonical": "quiet",
+      "rows": 3407,
+      "v3_1_fp": 42,
+      "v3_2_fp": 43,
+      "delta_fp": 1,
+      "v3_2_max": 0.8578166365623474,
+      "v3_2_p95": 0.1615571513772009
+    },
+    {
+      "scenario_canonical": "sniff",
+      "rows": 174,
+      "v3_1_fp": 4,
+      "v3_2_fp": 40,
+      "delta_fp": 36,
+      "v3_2_max": 0.9499197006225586,
+      "v3_2_p95": 0.7335114479064941
+    },
+    {
+      "scenario_canonical": "mixed_non_cough",
+      "rows": 641,
+      "v3_1_fp": 92,
+      "v3_2_fp": 30,
+      "delta_fp": -62,
+      "v3_2_max": 0.8401932716369629,
+      "v3_2_p95": 0.4902898669242859
+    }
+  ],
+  "known_error_regression": {
+    "status": "not_completed",
+    "reason": "no ready manifest was supplied in this task input set"
+  },
+  "recommendation": {
+    "recommended_next_step": "train2",
+    "reasons": [
+      "speech high-score non_cough windows increased",
+      "throat_clear high-score non_cough windows increased",
+      "sniff high-score non_cough windows increased"
+    ],
+    "sampler_adjustment_direction": [
+      "increase weight for speech negative windows or equivalent candidate role",
+      "increase weight for throat_clear negative windows or equivalent candidate role",
+      "increase weight for sniff negative windows or equivalent candidate role",
+      "reduce over-emphasis of positive_recall_fix_candidate weights if proxy activation improved but FP sources worsened"
+    ],
+    "allowed_recommendations_only": true
+  },
+  "not_executed": [
+    "training",
+    "ONNX export",
+    "deployment export",
+    "board package generation",
+    "training label modification",
+    "old v3.1/v3 model modification",
+    "raw WAV/JSON modification",
+    "ml/data/raw write"
+  ],
+  "proxy_metric_note": "Scenario-hint outputs are proxy metrics only and are not deployment threshold conclusions.",
+  "manual_review_metric_note": "Manual-review-labeled event metrics are not available in this stage unless a ready labeled manifest is supplied."
+}

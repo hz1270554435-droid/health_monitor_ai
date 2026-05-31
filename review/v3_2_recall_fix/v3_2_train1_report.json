@@ -1,0 +1,435 @@
+{
+  "stage": "v3.2-TRAIN-1",
+  "result": "pass",
+  "commands_run": [
+    {
+      "command": [
+        "D:\\e84_health_monitor\\ml\\.venv\\Scripts\\python.exe",
+        "scripts/run_v3_2_train1.py",
+        "--reuse-existing-output",
+        "--run-name",
+        "audio_baseline_v3_2_recall_fix_train1"
+      ],
+      "returncode": 0,
+      "stdout_tail": [
+        "Reused existing train1 metrics/checkpoint after prior training run."
+      ],
+      "stderr_tail": [],
+      "reused_existing_output": true
+    },
+    {
+      "command": [
+        "D:\\e84_health_monitor\\ml\\.venv\\Scripts\\python.exe",
+        "scripts/preprocess_audio.py",
+        "--config",
+        "D:\\cough_model_train\\health_monitor_ai\\configs\\audio_baseline_v3_2_recall_fix.yaml",
+        "--overwrite"
+      ],
+      "returncode": 0,
+      "stdout_tail": [
+        "Completed during the prior train1 wrapper invocation."
+      ],
+      "stderr_tail": [],
+      "reused_existing_output": true
+    },
+    {
+      "command": [
+        "D:\\e84_health_monitor\\ml\\.venv\\Scripts\\python.exe",
+        "scripts/train_audio_baseline.py",
+        "--config",
+        "D:\\cough_model_train\\health_monitor_ai\\configs\\audio_baseline_v3_2_recall_fix.yaml",
+        "--run-name",
+        "audio_baseline_v3_2_recall_fix_train1"
+      ],
+      "returncode": 0,
+      "stdout_tail": [
+        "Completed during the prior train1 wrapper invocation."
+      ],
+      "stderr_tail": [],
+      "reused_existing_output": true
+    }
+  ],
+  "config_path": "D:\\cough_model_train\\health_monitor_ai\\configs\\audio_baseline_v3_2_recall_fix.yaml",
+  "label_path": "D:\\cough_model_train\\health_monitor_ai\\data\\labels\\audio_labels_v3_2_train_weighted.csv",
+  "label_hash": "4fb074da5f15861d1b9ac463315844e82bb3ba2545ac33374bf9be218740913b",
+  "weighted_label_hash": "4fb074da5f15861d1b9ac463315844e82bb3ba2545ac33374bf9be218740913b",
+  "output_dirs": {
+    "processed_dir": "D:\\cough_model_train\\health_monitor_ai\\data\\processed\\audio_features_v3_2_recall_fix",
+    "results_root": "D:\\cough_model_train\\health_monitor_ai\\results\\audio_v3_2_recall_fix",
+    "models_root": "D:\\cough_model_train\\health_monitor_ai\\models\\audio_v3_2_recall_fix",
+    "result_dir": "D:\\cough_model_train\\health_monitor_ai\\results\\audio_v3_2_recall_fix\\audio_baseline_v3_2_recall_fix_train1",
+    "model_dir": "D:\\cough_model_train\\health_monitor_ai\\models\\audio_v3_2_recall_fix\\audio_baseline_v3_2_recall_fix_train1"
+  },
+  "checkpoint_path": "D:\\cough_model_train\\health_monitor_ai\\models\\audio_v3_2_recall_fix\\audio_baseline_v3_2_recall_fix_train1\\best_model.pt",
+  "precheck": {
+    "config_label_path_weighted": true,
+    "config_check_pass": true,
+    "one_epoch_smoke_pass": true,
+    "sampler_dry_run_pass": true,
+    "sample_weight_column_exists": true,
+    "label_distribution": {
+      "cough": 102,
+      "non_cough": 2380
+    },
+    "frontend": {
+      "frontend_board_htk_no_norm_v1": true,
+      "sample_rate_16000": true,
+      "mono_true_configured": true,
+      "window_seconds_1_0": true,
+      "hop_seconds_0_5": true,
+      "n_mels_40": true,
+      "mel_scale_htk": true,
+      "normalization_none": true,
+      "class_order_non_cough_cough": true
+    },
+    "output_dirs_v3_2_dedicated": true,
+    "output_dirs_not_v3_1": true,
+    "epochs_configured": 30,
+    "early_stopping_patience": 5
+  },
+  "epochs_configured": 30,
+  "epochs_run": 20,
+  "early_stopping_patience": 5,
+  "early_stop_triggered": true,
+  "best_epoch": 15,
+  "primary_metric": "val_f1",
+  "best_metric": 0.8785046728971962,
+  "split_counts": {
+    "test": 128,
+    "train": 3016,
+    "val": 148
+  },
+  "sampler": {
+    "sample_weight_active": true,
+    "weight_column": "sample_weight",
+    "train_sampler_type": "WeightedRandomSampler",
+    "train_uses_weighted_sampler": true,
+    "val_uses_weighted_sampler": false,
+    "test_uses_weighted_sampler": false
+  },
+  "train_feature_sampler_expectation": {
+    "rows": 3016,
+    "total_weight": 4804.0,
+    "label_weight": {
+      "cough": 1317.0,
+      "non_cough": 3487.0
+    },
+    "expected_cough_fraction": 0.274147,
+    "simulated_label_distribution": {
+      "cough": 887,
+      "non_cough": 2313
+    },
+    "simulated_cough_fraction": 0.277187,
+    "simulated_source_stage_distribution": {
+      "v3_1_fpfix_base": 2925,
+      "v3_2_recall_fix_addon": 275
+    },
+    "simulated_candidate_role_distribution": {
+      "": 2925,
+      "hard_negative_candidate": 115,
+      "non_cough_candidate": 11,
+      "positive_recall_fix_candidate": 127,
+      "positive_sanity_candidate": 22
+    }
+  },
+  "observed_sampler_label_distribution": {
+    "non_cough": 2179,
+    "cough": 837
+  },
+  "observed_sampler_cough_fraction": 0.27752,
+  "observed_sampler_cough_fraction_by_epoch": [
+    0.276194,
+    0.284151,
+    0.272215,
+    0.280172,
+    0.284483,
+    0.277188,
+    0.277851,
+    0.263263,
+    0.28382,
+    0.278183,
+    0.276525,
+    0.270225,
+    0.27752,
+    0.265915,
+    0.283488,
+    0.268568,
+    0.274536,
+    0.28382,
+    0.27321,
+    0.27752
+  ],
+  "loss_summary": {
+    "final_train_loss": 0.11651865037192717,
+    "final_val_loss": 0.4142527846065727,
+    "loss_finite": true,
+    "nan_inf_loss_batches": 0,
+    "train_log_rows": 20
+  },
+  "train_log_tail": [
+    {
+      "epoch": "16",
+      "train_loss": "0.12190903027588872",
+      "val_loss": "0.46398005845981677",
+      "val_accuracy": "0.8040540540540541",
+      "val_precision": "0.9411764705882353",
+      "val_recall": "0.5423728813559322",
+      "val_f1": "0.6881720430107527",
+      "is_best": "False",
+      "monitor_metric": "val_f1",
+      "monitor_value": "0.6881720430107527",
+      "epochs_without_improvement": "1",
+      "early_stop_triggered": "False",
+      "train_label_count_0": "2206",
+      "train_label_count_1": "810",
+      "train_nan_inf_loss_batches": "0",
+      "val_label_count_0": "89",
+      "val_label_count_1": "59",
+      "val_nan_inf_loss_batches": "0"
+    },
+    {
+      "epoch": "17",
+      "train_loss": "0.11040230352303078",
+      "val_loss": "0.8169925237165738",
+      "val_accuracy": "0.7702702702702703",
+      "val_precision": "1.0",
+      "val_recall": "0.423728813559322",
+      "val_f1": "0.5952380952380952",
+      "is_best": "False",
+      "monitor_metric": "val_f1",
+      "monitor_value": "0.5952380952380952",
+      "epochs_without_improvement": "2",
+      "early_stop_triggered": "False",
+      "train_label_count_0": "2188",
+      "train_label_count_1": "828",
+      "train_nan_inf_loss_batches": "0",
+      "val_label_count_0": "89",
+      "val_label_count_1": "59",
+      "val_nan_inf_loss_batches": "0"
+    },
+    {
+      "epoch": "18",
+      "train_loss": "0.1133433026446904",
+      "val_loss": "0.4810578487058346",
+      "val_accuracy": "0.8445945945945946",
+      "val_precision": "1.0",
+      "val_recall": "0.6101694915254238",
+      "val_f1": "0.7578947368421053",
+      "is_best": "False",
+      "monitor_metric": "val_f1",
+      "monitor_value": "0.7578947368421053",
+      "epochs_without_improvement": "3",
+      "early_stop_triggered": "False",
+      "train_label_count_0": "2160",
+      "train_label_count_1": "856",
+      "train_nan_inf_loss_batches": "0",
+      "val_label_count_0": "89",
+      "val_label_count_1": "59",
+      "val_nan_inf_loss_batches": "0"
+    },
+    {
+      "epoch": "19",
+      "train_loss": "0.11067661832751266",
+      "val_loss": "0.3540935519881345",
+      "val_accuracy": "0.8716216216216216",
+      "val_precision": "1.0",
+      "val_recall": "0.6779661016949152",
+      "val_f1": "0.8080808080808081",
+      "is_best": "False",
+      "monitor_metric": "val_f1",
+      "monitor_value": "0.8080808080808081",
+      "epochs_without_improvement": "4",
+      "early_stop_triggered": "False",
+      "train_label_count_0": "2192",
+      "train_label_count_1": "824",
+      "train_nan_inf_loss_batches": "0",
+      "val_label_count_0": "89",
+      "val_label_count_1": "59",
+      "val_nan_inf_loss_batches": "0"
+    },
+    {
+      "epoch": "20",
+      "train_loss": "0.11651865037192717",
+      "val_loss": "0.4142527846065727",
+      "val_accuracy": "0.831081081081081",
+      "val_precision": "0.8035714285714286",
+      "val_recall": "0.7627118644067796",
+      "val_f1": "0.782608695652174",
+      "is_best": "False",
+      "monitor_metric": "val_f1",
+      "monitor_value": "0.782608695652174",
+      "epochs_without_improvement": "5",
+      "early_stop_triggered": "True",
+      "train_label_count_0": "2179",
+      "train_label_count_1": "837",
+      "train_nan_inf_loss_batches": "0",
+      "val_label_count_0": "89",
+      "val_label_count_1": "59",
+      "val_nan_inf_loss_batches": "0"
+    }
+  ],
+  "evaluation": {
+    "class_names": [
+      "non_cough",
+      "cough"
+    ],
+    "model_name": "ds_cnn",
+    "splits": {
+      "train": {
+        "rows": 3016,
+        "confusion_matrix": [
+          [
+            2453,
+            210
+          ],
+          [
+            4,
+            349
+          ]
+        ],
+        "metrics": {
+          "accuracy": 0.9290450928381963,
+          "precision": 0.6243291592128801,
+          "recall": 0.9886685552407932,
+          "f1": 0.7653508771929824
+        },
+        "per_class": {
+          "non_cough": {
+            "precision": 0.9983719983719984,
+            "recall": 0.9211415696582801,
+            "f1": 0.9582031249999999,
+            "support": 2663
+          },
+          "cough": {
+            "precision": 0.6243291592128801,
+            "recall": 0.9886685552407932,
+            "f1": 0.7653508771929824,
+            "support": 353
+          }
+        }
+      },
+      "val": {
+        "rows": 148,
+        "confusion_matrix": [
+          [
+            88,
+            1
+          ],
+          [
+            12,
+            47
+          ]
+        ],
+        "metrics": {
+          "accuracy": 0.9121621621621622,
+          "precision": 0.9791666666666666,
+          "recall": 0.7966101694915254,
+          "f1": 0.8785046728971962
+        },
+        "per_class": {
+          "non_cough": {
+            "precision": 0.88,
+            "recall": 0.9887640449438202,
+            "f1": 0.9312169312169312,
+            "support": 89
+          },
+          "cough": {
+            "precision": 0.9791666666666666,
+            "recall": 0.7966101694915254,
+            "f1": 0.8785046728971962,
+            "support": 59
+          }
+        }
+      },
+      "test": {
+        "rows": 128,
+        "confusion_matrix": [
+          [
+            72,
+            23
+          ],
+          [
+            2,
+            31
+          ]
+        ],
+        "metrics": {
+          "accuracy": 0.8046875,
+          "precision": 0.5740740740740741,
+          "recall": 0.9393939393939394,
+          "f1": 0.7126436781609197
+        },
+        "per_class": {
+          "non_cough": {
+            "precision": 0.972972972972973,
+            "recall": 0.7578947368421053,
+            "f1": 0.8520710059171599,
+            "support": 95
+          },
+          "cough": {
+            "precision": 0.5740740740740741,
+            "recall": 0.9393939393939394,
+            "f1": 0.7126436781609197,
+            "support": 33
+          }
+        }
+      }
+    }
+  },
+  "v3_1_fpfix_reference": {
+    "available": true,
+    "source": "D:\\cough_model_train\\health_monitor_ai\\review\\board_live_data_1\\fpfix_train_report.json",
+    "status": "passed",
+    "best_epoch": 15,
+    "test_metrics": {
+      "accuracy": 0.8828125,
+      "precision": 0.7647058823529411,
+      "recall": 0.7878787878787878,
+      "f1": 0.7761194029850746
+    },
+    "note": "Reference only; v3.2 train1 is not a deployment candidate."
+  },
+  "formal_model_candidate": true,
+  "deploy_candidate": false,
+  "not_executed": [
+    "ONNX export",
+    "deployment export",
+    "board package generation",
+    "threshold sweep as final decision",
+    "old label modification",
+    "raw WAV/JSON modification",
+    "ml/data/raw write"
+  ],
+  "old_label_hash_before": {
+    "data/labels/audio_labels_v3.csv": "50740150a81ae53dab429bb317f3087e4d575368d85ab17ecee5ee4d1953bb76",
+    "data/labels/audio_labels_v3_1_fpfix_train.csv": "cbdc6f13a67eb53c7968dc5a7af64ef43fb976127061ee81bea9c132af4e5cc1",
+    "data/labels/audio_labels_v3_2_train.csv": "8930a6b93d510191b952c808e52ca06c55fc97f13b2b9e32ab35894e267a3af3"
+  },
+  "old_label_hash_after": {
+    "data/labels/audio_labels_v3.csv": "50740150a81ae53dab429bb317f3087e4d575368d85ab17ecee5ee4d1953bb76",
+    "data/labels/audio_labels_v3_1_fpfix_train.csv": "cbdc6f13a67eb53c7968dc5a7af64ef43fb976127061ee81bea9c132af4e5cc1",
+    "data/labels/audio_labels_v3_2_train.csv": "8930a6b93d510191b952c808e52ca06c55fc97f13b2b9e32ab35894e267a3af3"
+  },
+  "errors": [],
+  "validation": {
+    "training_command_succeeded": true,
+    "epochs_run_positive": true,
+    "epochs_run_at_or_below_config": true,
+    "best_epoch_valid": true,
+    "checkpoint_exists": true,
+    "sample_weight_active": true,
+    "train_sampler_weighted": true,
+    "train_sampler_type_weighted_random": true,
+    "val_test_unweighted": true,
+    "observed_sampler_cough_fraction_25_to_30": true,
+    "loss_finite": true,
+    "nan_inf_loss_count_0": true,
+    "v3_2_output_dirs_used": true,
+    "did_not_overwrite_one_epoch_smoke": true,
+    "v3_1_output_dirs_not_configured": true,
+    "no_onnx_export": true,
+    "no_deployment_export": true,
+    "old_label_hashes_unchanged": true,
+    "raw_data_not_referenced": true
+  }
+}

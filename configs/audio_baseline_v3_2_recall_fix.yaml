@@ -1,0 +1,124 @@
+project:
+  name: health_monitor_ai
+  seed: 42
+paths:
+  audio_dir: .
+  labels_csv: data/labels/audio_labels_v3_2_train_weighted.csv
+  # CONFIG-1A does not create a separate sessions table. The current
+  # check_dataset.py only verifies session_id membership, so the published
+  # label CSV is used as a self-contained session_id source for this stage.
+  sessions_csv: data/labels/audio_labels_v3_2_train_weighted.csv
+  processed_dir: data/processed/audio_features_v3_2_recall_fix
+  models_dir: models/audio_v3_2_recall_fix
+  results_dir: results/audio_v3_2_recall_fix
+audio:
+  frontend: board_htk_no_norm_v1
+  sample_rate: 16000
+  mono: true
+  window_seconds: 1.0
+  hop_seconds: 0.5
+  n_mels: 40
+  n_fft: 1024
+  hop_length: 160
+  fmin: 50
+  fmax: 7600
+  mel_scale: htk
+  htk: true
+  center: true
+  top_db: 80
+  normalize: none
+labels:
+  positive: cough
+  negative: non_cough
+  class_order:
+  - non_cough
+  - cough
+split:
+  train_ratio: 0.7
+  val_ratio: 0.15
+  test_ratio: 0.15
+  group_column: person_id
+sampling:
+  mode: weighted_random
+  hard_negative_oversample: false
+  hard_negative_multiplier: 1.0
+  use_sample_weight: true
+  weight_column: sample_weight
+  target_positive_fraction: 0.30
+  target_positive_fraction_range:
+  - 0.25
+  - 0.35
+  train_split_uses_weighted_sampler: true
+  val_split_uses_weighted_sampler: false
+  test_split_uses_weighted_sampler: false
+  note: >
+    The training code consumes only the numeric manifest sample_weight column
+    for sampling.mode=weighted_random. Source-stage and candidate-role rules
+    below are policy targets and must be materialized into sample_weight before
+    they affect training.
+  sample_weight_plan:
+    preserve_existing_v3_1_base_non_cough_weights: true
+    base_cough: 3.5
+    positive_recall_fix_candidate: 6.0
+    positive_sanity_candidate: 3.0
+    hard_negative_candidate: 4.0
+    non_cough_candidate: 2.0
+    clean_non_cough_smoke_candidate: 1.0
+    default_non_cough: 1.0
+training:
+  model: ds_cnn
+  batch_size: 32
+  epochs: 30
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  num_workers: 0
+  device: auto
+  early_stopping_patience: 5
+  optimizer: adamw
+  class_weight: none
+  class_weight_note: >
+    Mild loss weights may be considered later, but the current
+    train_audio_baseline.py uses plain CrossEntropyLoss and does not consume
+    loss_class_weights. CONFIG-1A therefore relies on sampler planning rather
+    than claiming loss class weights are active.
+imbalance_policy:
+  version: v3_2_config_imbalance_policy_v1
+  status: sample_weight_materialized_view_ready
+  label_rows: 2482
+  label_distribution:
+    cough: 102
+    non_cough: 2380
+  materialized_label_csv: data/labels/audio_labels_v3_2_train_weighted.csv
+  reference_unweighted_label_csv: data/labels/audio_labels_v3_2_train.csv
+  target_positive_fraction: 0.30
+  target_level: feature_window_manifest
+  target_positive_fraction_range:
+  - 0.25
+  - 0.35
+  avoid_extreme_loss_class_weight: true
+  active_without_training_code_patch:
+    weighted_random_sampler: true
+    manifest_sample_weight_column: true
+    source_stage_candidate_role_rules: false
+    loss_class_weight: false
+  legacy_dual_channel_caveat:
+    accepted: true
+    legacy_dual_channel_rows: 317
+    legacy_source_stage: v3_1_fpfix_base
+    v3_2_addon_dual_channel_rows: 0
+    required_loader_behavior: mono_true_or_equivalent_mono_conversion
+  holdout_policy:
+    p02_in_addon_train_rows: 0
+    p03_in_addon_train_rows: 0
+    long_quiet_eval_in_addon_train_rows: 0
+    distance_extrap_eval_in_addon_train_rows: 0
+eval:
+  primary_metric: val_f1
+  threshold_min_recall: 0.9
+  false_alarm:
+    event_merge_gap_seconds: 5.0
+    night_hours: 8.0
+run:
+  name: audio_baseline_v3_2_recall_fix
+debug:
+  small_data: false
